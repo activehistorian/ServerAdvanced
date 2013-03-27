@@ -9,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Enumeration;
-
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,17 +20,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	 public static String SERVERIP = "192.168.1.4";
 	 public static final int SERVERPORT = 8080;
 	 private Handler handler = new Handler();
 	 private ServerSocket serverSocket;
+	 
 	 private TextView Attension;
 	 private TextView serverStatus;
 	 private String currentIPToLookUp;
 	 private Button ViewWebcam;
+	 
 	 private MediaPlayer warning;
 	 
 	
@@ -39,12 +39,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		SERVERIP = getLocalIpAddress();
 		
 		serverStatus = (TextView)findViewById(R.id.ServerIP);
 		Attension = (TextView)findViewById(R.id.Attension);
-		SERVERIP = getLocalIpAddress();
 		ViewWebcam = (Button)findViewById(R.id.Button);
 		ViewWebcam.setVisibility(View.GONE);
+		
 		warning = MediaPlayer.create(MainActivity.this, R.raw.warning);
 		
 		ViewWebcam.setOnClickListener(new OnClickListener(){
@@ -77,12 +78,6 @@ public class MainActivity extends Activity {
                     while (true) {
                         // listen for incoming clients
                         Socket client = serverSocket.accept();
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                serverStatus.setText(SERVERIP);
-                            }
-                        });
 
                         try {
                             final BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -99,41 +94,16 @@ public class MainActivity extends Activity {
 											ViewWebcam.setVisibility(0);
 											warning.start();
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
+											e.printStackTrace();}
                                     }
                                 });
                                 break;
                             }
                             break;
-                        } catch (Exception e) {
-                           handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    serverStatus.setText("Oops. Connection interrupted. Please reconnect your phones.");
-                                }
-                            });
-                            e.printStackTrace();
-                        }
+                        } catch (Exception e) {}
                     }
-                } else {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            serverStatus.setText("Couldn't detect internet connection.");
-                        }
-                    });
-                }
-            } catch (Exception e) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        serverStatus.setText("Error");
-                    }
-                });
-                e.printStackTrace();
-            }
+                } else {}
+            } catch (Exception e) {}
         }
     }
 	
