@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000" 
+    android:background="#000000"
     tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:layout_below="@+id/relativeLayout1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:text="Staff ID"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/ServerIP"
@@ -23,9 +23,9 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
-        android:textColor="#ffffff"
         android:text="IP Address"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/textView2"
@@ -34,9 +34,9 @@
         android:layout_below="@+id/ServerIP"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:textColor="#ffffff"
         android:text="Attension Required"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/Attension"
@@ -45,9 +45,9 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:textColor="#ffffff"
         android:text="None"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
 
     <Button
         android:id="@+id/Button"
@@ -56,5 +56,21 @@
         android:layout_below="@+id/Attension"
         android:layout_centerHorizontal="true"
         android:text="View Webcam" />
+
+    <Button
+        android:id="@+id/Previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Button"
+        android:layout_toLeftOf="@+id/Button"
+        android:text="Prev" />
+
+    <Button
+        android:id="@+id/Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Button"
+        android:layout_toRightOf="@+id/Button"
+        android:text="Next" />
 
 </RelativeLayout>

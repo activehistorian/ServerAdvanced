@@ -8,7 +8,10 @@ import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.LinkedList;
+
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	 public static String SERVERIP = "192.168.1.4";
@@ -31,32 +35,80 @@ public class MainActivity extends Activity {
 	 private TextView serverStatus;
 	 private String currentIPToLookUp;
 	 private Button ViewWebcam;
+	 private Button Next;
+	 private Button Previous;
 	 
 	 private MediaPlayer warning;
 	 
+	 private LinkedList<String> help = new LinkedList<String>();
+	 private int currentposition = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		SERVERIP = getLocalIpAddress();
-		
+			
 		serverStatus = (TextView)findViewById(R.id.ServerIP);
 		Attension = (TextView)findViewById(R.id.Attension);
+		
+		Next = (Button)findViewById(R.id.Next);
+		Next.setVisibility(View.GONE);
+		Previous = (Button)findViewById(R.id.Previous);
+		Previous.setVisibility(View.GONE);
 		ViewWebcam = (Button)findViewById(R.id.Button);
 		ViewWebcam.setVisibility(View.GONE);
 		
 		warning = MediaPlayer.create(MainActivity.this, R.raw.warning);
 		
+		Next.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View argo0){
+				if(currentposition == (help.size() - 1)){
+					Toast toast = Toast.makeText(getApplicationContext(), "You are at the end of the queue", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					currentposition = currentposition + 1;
+					Attension.setText(extract(help.get(currentposition))[1]);
+					currentIPToLookUp = extract(help.get(currentposition))[0];
+				}
+			}
+		});
+		
+		Previous.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View argo0){
+				if(currentposition == 0){
+					Toast toast = Toast.makeText(getApplicationContext(), "You are at the beggning of the queue", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					currentposition = currentposition - 1;
+					Attension.setText(extract(help.get(currentposition))[1]);
+					currentIPToLookUp = extract(help.get(currentposition))[0];
+				}
+			}
+		});
+		
+		
 		ViewWebcam.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) {
 				warning.stop();
+				for(String x: help){
+					if(extract(x)[0].equals(currentIPToLookUp)){
+						help.remove(x);
+					}
+				}
+				if(help.size() < 2){
+					Previous.setVisibility(View.GONE);
+					Next.setVisibility(View.GONE);
+				}
+				if(help.size() < 1){
+					ViewWebcam.setVisibility(View.GONE);
+				}
 				String x = "http://" + currentIPToLookUp + ":8080/videofeed";
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(x)));
 			}
-			
 		});
 		
 		Thread thread = new Thread(new ServerThread());
@@ -78,7 +130,6 @@ public class MainActivity extends Activity {
                     while (true) {
                         // listen for incoming clients
                         Socket client = serverSocket.accept();
-
                         try {
                             final BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                             String line = null;
@@ -88,10 +139,13 @@ public class MainActivity extends Activity {
                                     public void run() {
                                         try {
                                         	String y = in.readLine();
-                                        	String[] values = extract(y);	
-											Attension.setText(values[1]);
-											currentIPToLookUp = values[0];
+											help.add(y);
+											Attension.setText(extract(help.get(0))[1]);
 											ViewWebcam.setVisibility(0);
+											if(help.size() > 1){
+												Next.setVisibility(0);
+												Previous.setVisibility(0);
+											}
 											warning.start();
 										} catch (IOException e) {
 											e.printStackTrace();}
