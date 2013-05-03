@@ -10,13 +10,18 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+<<<<<<< HEAD
 import java.util.LinkedList;
 
+=======
+>>>>>>> vibration feature
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -39,6 +44,15 @@ public class MainActivity extends Activity {
 	 private Button Previous;
 	 
 	 private MediaPlayer warning;
+	 private Vibrator v;
+	 private int dot = 200;      
+	 private int dash = 500;     
+	 private int short_gap = 200;    
+	 private int medium_gap = 500;   
+	 private int long_gap = 1000;    
+	 private long[] SOS = {0,dot, short_gap, dot, short_gap, dot,medium_gap,
+		dash, short_gap, dash, short_gap, dash,medium_gap,
+	     dot, short_gap, dot, short_gap, dot,long_gap};
 	 
 	 private LinkedList<String> help = new LinkedList<String>();
 	 private int currentposition = 0;
@@ -60,6 +74,7 @@ public class MainActivity extends Activity {
 		ViewWebcam.setVisibility(View.GONE);
 		
 		warning = MediaPlayer.create(MainActivity.this, R.raw.warning);
+		v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		
 		Next.setOnClickListener(new OnClickListener(){
 			@Override
@@ -94,6 +109,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				warning.stop();
+<<<<<<< HEAD
 				for(String x: help){
 					if(extract(x)[0].equals(currentIPToLookUp)){
 						help.remove(x);
@@ -106,6 +122,9 @@ public class MainActivity extends Activity {
 				if(help.size() < 1){
 					ViewWebcam.setVisibility(View.GONE);
 				}
+=======
+				v.cancel();
+>>>>>>> vibration feature
 				String x = "http://" + currentIPToLookUp + ":8080/videofeed";
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(x)));
 			}
@@ -142,10 +161,14 @@ public class MainActivity extends Activity {
 											help.add(y);
 											Attension.setText(extract(help.get(0))[1]);
 											ViewWebcam.setVisibility(0);
+<<<<<<< HEAD
 											if(help.size() > 1){
 												Next.setVisibility(0);
 												Previous.setVisibility(0);
 											}
+=======
+											v.vibrate(SOS, 0);
+>>>>>>> vibration feature
 											warning.start();
 										} catch (IOException e) {
 											e.printStackTrace();}

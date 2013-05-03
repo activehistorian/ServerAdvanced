@@ -6,6 +6,7 @@
     tools:context=".MainActivity" >
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,6 +36,35 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="Attension Required"
+=======
+        android:id="@+id/ServerIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:text="IP Address"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Attension"
+        android:layout_centerHorizontal="true"
+        android:text="Attension Needed:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="Staff ID:"
+>>>>>>> vibration feature
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 
@@ -42,10 +72,16 @@
         android:id="@+id/Attension"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="None"
+=======
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="none"
+>>>>>>> vibration feature
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 
@@ -53,6 +89,7 @@
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_below="@+id/Attension"
         android:layout_centerHorizontal="true"
         android:text="View Webcam" />
@@ -72,5 +109,16 @@
         android:layout_alignBottom="@+id/Button"
         android:layout_toRightOf="@+id/Button"
         android:text="Next" />
+=======
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:text="View Webcam"
+        android:textColor="#ffffff" />
 
+        />
+>>>>>>> vibration feature
+
+        />
+        
 </RelativeLayout>

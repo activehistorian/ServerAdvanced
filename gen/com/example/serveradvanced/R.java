@@ -15,6 +15,7 @@ public final class R {
         public static final int ucl=0x7f020001;
     }
     public static final class id {
+<<<<<<< HEAD
         public static final int Attension=0x7f080004;
         public static final int Button=0x7f080005;
         public static final int Next=0x7f080007;
@@ -24,6 +25,14 @@ public final class R {
         public static final int relativeLayout1=0x7f080001;
         public static final int textView1=0x7f080000;
         public static final int textView2=0x7f080003;
+=======
+        public static final int Attension=0x7f080003;
+        public static final int Button=0x7f080004;
+        public static final int ServerIP=0x7f080000;
+        public static final int menu_settings=0x7f080005;
+        public static final int textView1=0x7f080001;
+        public static final int textView3=0x7f080002;
+>>>>>>> vibration feature
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
